@@ -30,7 +30,7 @@ class BoidModel(Model):
             width, height: Size of the space.
             speed: How fast should the Boids move.
             vision: How far around should each Boid look for its neighbors
-            separtion: What's the minimum distance each Boid will attempt to
+            separation: What's the minimum distance each Boid will attempt to
                        keep from any other
         '''
         self.N = N
@@ -50,10 +50,9 @@ class BoidModel(Model):
         for i in range(self.N):
             x = random.random() * self.space.x_max
             y = random.random() * self.space.y_max
-            pos = (x, y)
-            heading = np.random.random(2) * 2 - np.array((1, 1))
-            heading /= np.linalg.norm(heading)
-            boid = Boid(i, self, pos, self.speed, heading, self.vision,
+            pos = np.array((x, y))
+            velocity = np.random.random(2) * 2 - 1
+            boid = Boid(i, self, pos, self.speed, velocity, self.vision,
                         self.separation)
             self.space.place_agent(boid, pos)
             self.schedule.add(boid)
